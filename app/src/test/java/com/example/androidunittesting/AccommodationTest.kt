@@ -5,13 +5,13 @@ import org.junit.Before
 import org.junit.Test
 
 class AccommodationTest {
-    lateinit var accom1: Accomodation
-    lateinit var accom2: Accomodation
+    lateinit var accom1: Option
+    lateinit var accom2: Option
 
     @Before
     fun resetAccomodations() {
-        accom1 = Accomodation()
-        accom2 = Accomodation()
+        accom1 = Option("")
+        accom2 = Option("")
     }
 
     @Test

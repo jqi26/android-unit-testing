@@ -1,13 +1,13 @@
 package com.example.androidunittesting
 
-class Accomodation {
+class Option(var name: String) {
     private var pros: ArrayList<Pro> = arrayListOf()
 
     fun totalScore(): Int {
         return this.pros.sumOf { it.rating.num }
     }
     
-    fun betterThan(other: Accomodation): Boolean {
+    fun betterThan(other: Option): Boolean {
         return this.totalScore() > other.totalScore()
     }
 
