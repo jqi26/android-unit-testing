@@ -1,5 +1,7 @@
 package com.example.androidunittesting
 
+import com.example.androidunittesting.room.Option
+import com.example.androidunittesting.room.Pro
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test

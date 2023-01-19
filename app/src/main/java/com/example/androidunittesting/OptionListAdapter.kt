@@ -1,12 +1,15 @@
 package com.example.androidunittesting
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidunittesting.room.Option
+import com.example.androidunittesting.room.OptionWithPros
 
-class OptionListAdapter(private val options: List<Option>) :
+class OptionListAdapter(private var options: List<OptionWithPros>) :
     RecyclerView.Adapter<OptionListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -27,9 +30,15 @@ class OptionListAdapter(private val options: List<Option>) :
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.name.text = options[position].name
+        viewHolder.name.text = options[position].option.name
         viewHolder.score.text = options[position].totalScore().toString()
     }
 
     override fun getItemCount() = options.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(options: List<OptionWithPros>) {
+        this.options = options
+        notifyDataSetChanged()
+    }
 }

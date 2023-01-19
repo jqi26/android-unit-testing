@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.androidunittesting.room.Option
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class OptionListFragment : Fragment() {
-    private var options = arrayListOf(Option("Test Option 1"), Option("Test Option 2"))
+    private val viewModel: OptionViewModel by navGraphViewModels(R.id.nav_graph) {
+        OptionViewModelFactory((activity?.application as OptionApplication).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +38,11 @@ class OptionListFragment : Fragment() {
         )
         recyclerView.addItemDecoration(dividerItemDecoration)
 
-        recyclerView.adapter = OptionListAdapter(options)
+        val adapter = OptionListAdapter(arrayListOf())
+        recyclerView.adapter = adapter
+        viewModel.options.observe(viewLifecycleOwner) {
+            adapter.updateData(it)
+        }
 
         view.findViewById<FloatingActionButton>(R.id.optionListFab).setOnClickListener {
             showNewOptionDialog()
@@ -60,7 +67,7 @@ class OptionListFragment : Fragment() {
             if (newName.isEmpty()) {
                 Toast.makeText(context, "Name cannot be empty.", Toast.LENGTH_SHORT).show()
             } else {
-                options.add(Option(newName.toString()))
+                viewModel.addOption(Option(newName.toString()))
                 dialog.dismiss()
             }
         }
