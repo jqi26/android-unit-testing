@@ -1,21 +1,24 @@
 package com.example.androidunittesting
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.androidunittesting.room.Option
 import com.example.androidunittesting.room.OptionRepository
+import com.example.androidunittesting.room.OptionWithPros
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class OptionViewModel(private val repository: OptionRepository): ViewModel() {
     var options = repository.optionWithPros.asLiveData()
+    var selectedOption: LiveData<OptionWithPros>? = null
 
     fun addOption(option: Option) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addOption(option)
         }
+    }
+
+    fun updateSelectedOption(id: Long) {
+        selectedOption = repository.optionWithPros(id).asLiveData()
     }
 }
 

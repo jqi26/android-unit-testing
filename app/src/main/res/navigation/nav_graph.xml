@@ -9,5 +9,14 @@
         android:id="@+id/optionListFragment"
         android:name="com.example.androidunittesting.OptionListFragment"
         android:label="fragment_option_list"
-        tools:layout="@layout/fragment_option_list" />
+        tools:layout="@layout/fragment_option_list" >
+        <action
+            android:id="@+id/action_optionListFragment_to_proListFragment"
+            app:destination="@id/proListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/proListFragment"
+        android:name="com.example.androidunittesting.ProListFragment"
+        android:label="fragment_pro_list"
+        tools:layout="@layout/fragment_pro_list" />
 </navigation>

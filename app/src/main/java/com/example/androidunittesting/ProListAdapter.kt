@@ -6,15 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.androidunittesting.room.Option
-import com.example.androidunittesting.room.OptionWithPros
+import com.example.androidunittesting.room.Pro
 
-interface OnOptionSelect {
-    fun didSelectAt(position: Int)
-}
-
-class OptionListAdapter(private var options: List<OptionWithPros>, private var delegate: OnOptionSelect) :
-    RecyclerView.Adapter<OptionListAdapter.ViewHolder>() {
+class ProListAdapter(private var pros: List<Pro>) :
+    RecyclerView.Adapter<ProListAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView
@@ -34,19 +29,15 @@ class OptionListAdapter(private var options: List<OptionWithPros>, private var d
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.name.text = options[position].option.name
-        viewHolder.score.text = options[position].totalScore().toString()
-
-        viewHolder.itemView.setOnClickListener {
-            delegate.didSelectAt(position)
-        }
+        viewHolder.name.text = pros[position].description
+        viewHolder.score.text = pros[position].rating.num.toString()
     }
 
-    override fun getItemCount() = options.size
+    override fun getItemCount() = pros.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateData(options: List<OptionWithPros>) {
-        this.options = options
+    fun updateData(pros: List<Pro>) {
+        this.pros = pros
         notifyDataSetChanged()
     }
 }

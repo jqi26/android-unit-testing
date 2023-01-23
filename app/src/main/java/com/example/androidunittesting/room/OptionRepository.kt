@@ -10,4 +10,8 @@ class OptionRepository(private val optionDao: OptionDao) {
     suspend fun addOption(option: Option) {
         optionDao.addOption(option)
     }
+
+    fun optionWithPros(id: Long): Flow<OptionWithPros> {
+        return optionDao.getOptionWithPros(id)
+    }
 }
