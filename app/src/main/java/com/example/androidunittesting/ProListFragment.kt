@@ -68,11 +68,14 @@ class ProListFragment : Fragment() {
         val dialog = builder.create()
         dialog.show()
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener {
-            val newName = nameText.text.trim()
+            val newName = nameText.text.toString().trim()
             if (newName.isEmpty()) {
                 Toast.makeText(context, "Name cannot be empty.", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.addOption(Option(newName.toString()))
+                viewModel.selectedOption?.value?.option?.id?.let {
+                    viewModel.addPro(Pro(newName, Pro.Rating.values()[spinner.selectedItemPosition], it))
+                }
+
                 dialog.dismiss()
             }
         }

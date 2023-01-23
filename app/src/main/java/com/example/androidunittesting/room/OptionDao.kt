@@ -18,4 +18,7 @@ interface OptionDao {
     @Transaction
     @Query("SELECT * FROM Option WHERE id = :id")
     fun getOptionWithPros(id: Long): Flow<OptionWithPros>
+
+    @Insert
+    suspend fun addPro(pro: Pro)
 }

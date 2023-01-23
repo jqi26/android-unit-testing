@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.example.androidunittesting.room.Option
 import com.example.androidunittesting.room.OptionRepository
 import com.example.androidunittesting.room.OptionWithPros
+import com.example.androidunittesting.room.Pro
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,12 @@ class OptionViewModel(private val repository: OptionRepository): ViewModel() {
 
     fun updateSelectedOption(id: Long) {
         selectedOption = repository.optionWithPros(id).asLiveData()
+    }
+
+    fun addPro(pro: Pro) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addPro(pro)
+        }
     }
 }
 
